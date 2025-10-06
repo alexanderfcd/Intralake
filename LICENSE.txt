@@ -1,0 +1,9 @@
+Copyright (c) 2025
+
+This software is licensed for non-commercial use only.
+
+You may use, copy, modify, and distribute this software for non-commercial purposes, including personal and academic use.
+
+Commercial use — including use by companies, organizations, or in products or services that generate revenue — is strictly prohibited without a commercial license.
+
+To obtain a commercial license, contact: intralake@gmail.com
