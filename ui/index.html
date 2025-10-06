@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+ 
+
+    <script>
+        ;(function(targetGlobal){
+
+            const scriptLoader = async url => {
+                return new Promise(  (resolve) => {
+                    var s = document.createElement('script');
+             
+                    s.src = url;
+                    document.documentElement.appendChild(s);
+
+                    s.onload = function () {
+                        resolve(true);
+                    }
+                    
+                    s.onerror = function () {
+                        resolve(false)
+                    }
+                    
+                })
+            }
+
+
+            var _events = {};
+            targetGlobal.il = {
+                on:  function (e, f) { _events[e] ? _events[e].push(f) : (_events[e] = [f]); return this; },
+                dispatch: function (e, f) { _events[e] ? _events[e].forEach(function (c){ c.call(this, f); }) : ''; },
+                useWait: p => p.then(data => [ data, null ]).catch(error => [ null, error ]),
+            }
+
+
+            il.scriptLoader = scriptLoader;
+            il.scriptAPILoader = async (path) => {
+                return await scriptLoader(w7.apiurl(path))
+            };
+
+            il.scriptAPIRootLoader = async (path) => {
+                return await scriptLoader(w7.apiroot(path))
+            };
+            
+
+        })(window);
+
+    </script>
+
+ 
+
+
+    <script>
+
+;(async function(){
+
+
+        await il.scriptLoader('/libs.js')
+        await il.scriptLoader('/config.js')
+            
+
+            il.sscodes = {
+
+            }
+
+            il.config = {
+                homeURL: w7.Config.home,
+                logo: {
+                    tag: 'a',
+                    className: 'intralake-logo',
+                    innerHTML: '<span class="intralake-logo-mark"></span><span>IntraLake</span>',
+                }
+            }
+
+            il.prepareProject = async (project) => {
+              
+ 
+                const loadProjectScripts = async (project) => {
+
+                    const scripts = [
+
+                        '/index.modules.js',
+                    
+                        '/index.js',
+                       
+                         w7.apiurl(`/ui-plugins${project ? '/' + project : ''}?ext=js`),
+                    ];
+
+                    for( let i = 0; i < scripts.length; i++) { 
+                        let url = scripts[i];
+                        let loaded = await il.scriptLoader(url);
+                   
+                        if(!loaded) {
+                            console.error('Failed to load script: ' + url);
+                        }
+                    }
+
+                        
+                }
+                if(!project) {
+                    project = getProject();
+                }
+                
+                if(project) {
+                    await loadProjectScripts(project)
+                } else {
+                    await loadProjectScripts();
+                }
+
+                il.pars
+            }
+
+             addEventListener('load', async function () {
+                await il.prepareProject();
+       
+                setTimeout(function() {
+                    il.templateRenderer.parseHooks();
+                 }, 78);
+
+
+/*
+                 const config = { attributes: false, childList: true, subtree: true };
+
+
+                let mutationTimer = null;
+ 
+                const callback = (mutationList, observer) => {
+                    clearTimeout(mutationTimer);
+                    mutationTimer = setTimeout(function() {
+                        il.templateRenderer.parseHooks();
+                     }, 178);
+                    
+                };
+
+               
+                const observer = new MutationObserver(callback);
+
+  
+                 observer.observe(document.body, config);*/
+
+            })
+
+
+})();
+
+
+
+    </script>
+
+
+    <!-- use xlsx.full.min.js from version 0.20.0 
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  
+
+    <script src="/js/xspreadsheet.js"></script>
+    <link href="/js/xspreadsheet.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="/css/file-icon-vivid.min.css" />
+
+    <link href="/style.css" rel="stylesheet">
+    <title>IntraLake</title>
+    <link rel="icon" href="/assets/fav.png">
+
+
+   
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="app-container">
+        <div id="app" class="wui-card wui-component wui-card-in">
+
+        <div data-view="admin">
+
+        </div>
+        <div data-view="dashboard">
+
+        </div>
+        <div data-view="folder">
+
+        </div>
+        <div data-view="app">
+
+        </div>
+
+
+        <div data-view="profile">
+
+        </div>
+
+        <div data-view="billing">
+
+        </div>
+
+        <div data-view="confirm">
+
+        </div>
+
+    </div>
+    </div>
+
+
+    <template id="tpl-dashboard">
+        <div class="dashboard-wrapper">
+            <div id="dashboard-info"></div>
+            <div class='dshb-row'>
+                <div>
+                <div class="il-card">
+                
+                    
+                    <div class="il-card-header">
+                        <h3 class="il-title-6">Activity</h3>
+                    </div>
+                    <div >
+                        <ul id="dashboard-activity" class='dashboard-activity'></ul>
+                    </div>
+                </div>
+                </div>
+                <div>
+
+                    <div class="il-card">
+                
+                    
+                        <div class="il-card-header">
+                            <h3 class="il-title-6">Comments</h3>
+                        </div>
+                        <div >
+                            <div id="dashboard-comments" class='dashboard-activity'></div>
+                        </div>
+                    </div>
+
+
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="tpl-profile">
+        <div class="admin-block" id="admin-user-profile">
+
+        </div>
+    </template>
+
+    <template id="tpl-billing">
+        <div class="admin-block" id="admin-user-billing">
+
+        </div>
+    </template>
+
+    <template id="tpl-confirm">
+        <div class="admin-block" id="admin-user-confirm">
+
+        </div>
+    </template>
+
+
+
+<template id="tpl-admin">
+    <div class="admin-block">
+        <div class="admin-menu">
+            <div id="admin-menu-list"></div>
+        </div>
+        <div class="admin-content ">
+
+
+        </div>
+    </div>
+</template>
+<template id="tpl-file-view">
+
+    <div class="view view-object wui-object">
+        <div id="main-object-view-root">
+            <div id="main-object-view">
+
+            </div>
+            <div class="ov-context ov-context-preview">
+
+                <style>
+
+                    #preview-context{
+                        flex: 1;
+                    }
+                </style>
+ 
+                <div id="preview-context" data-hook-id="object-preview-context">
+
+                </div>
+                <a class="wui-btn-link" id="ov-download"><i class="material-icons">download_for_offline</i><span><lang>DOWNLOAD</lang></span></a>
+                <span class="wui-btn-link" onclick="w7.objects.uploadVersionDialog(getObject())"><i class="material-icons">upload</i><span><lang>UPLOAD NEW VERSION</lang></span></span>
+            </div>
+            <div class="ov-context ov-context-edit" style="display: none">
+                <button class="wui-btn wui-btn-outline" onclick="w7.service.goto('object')"><lang>Back</lang></button>
+                <button class="wui-btn-prime btn-editor-save" disabled>Save</button>
+            </div>
+
+
+        </div>
+        <div class="object-info">
+            <div class="object-info-wtab">
+
+                <div  class="il-box-list object-info-props nohover">
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Type</lang></div><div class="il-box-list-item-value oit-type"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Author</lang></div><div class="il-box-list-item-value oit-author"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Last modified by</lang></div><div class="il-box-list-item-value oit-modified"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Tags</lang></div><div class="il-box-list-item-value oit-tags"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Created</lang></div><div class="il-box-list-item-value oit-created"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Updated</lang></div><div class="il-box-list-item-value oit-updated"></div></div>
+                    <div class="il-box-list-item"><div class="il-box-list-item-title"><lang>Size</lang></div><div class="il-box-list-item-value oit-size"></div></div>
+                </div>
+ 
+                <div data-hook-id="object-info-wtab">
+                     
+                </div>
+            </div>
+        </div>
+        <div class="wtabs object-preview-data-tabs">
+            <ul class="wtab-nav">
+                <span class="wui-btn active">Notes & Comments</span>
+                <span class="wui-btn">HISTORY</span>
+            </ul>
+            <div class="wtab active">
+                <div class="comments">
+
+
+                    <form data-perm="canComment" onsubmit="w7.handle.comment(event);" id="form-comments" style="display: none">
+                        <input type="hidden" name="id">
+                        <textarea name="comment" data-key="comment" placeholder="Enter private comment..."></textarea>
+                        <span class="error" data-error data-path="comment"></span>
+                        <button type="submit" class="wui-btn">SUBMIT</button>
+                        <span class="wui-btn-link">CANCEL</span>
+                    </form>
+
+                    <div class="comments-list"></div>
+
+                </div>
+            </div>
+
+            <div class="wtab object-info-versions ">
+
+            </div>
+        </div>
+    </div>
+
+</template>
+<template id="tpl-folder-table">
+    <div class="view-files-holder" id="folder-view-root">
+        <div class="context-root-menu">
+            <button class="wui-btn wui-btn-icon wui-btn-outline" wtip="Refresh" data-action="refresh">
+                <i class="material-icons">refresh</i>
+            </button>
+            <div class="view-files-multiselect-menu">
+                <button class="wui-btn wui-btn-icon wui-btn-outline" wtip="Delete" data-action="delete">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+        </div>
+        <div class="no-results" id="main-table-viewno-results" style="display: none;"></div>
+        <div class="responsive-table">
+            <table class="wui-table wui-table-sortable" id="main-table-view">
+                <colgroup>
+                    <col width="30"/>
+                    <col width="30"/>
+                    <col width="30"/>
+                    <col  />
+                    <col width="120"/>
+                    <col width="120"/>
+                    <col width="30"/>
+                    <col width="30"/>
+                    <col width="30"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th><label class="wui-check"><input type="checkbox" id="selectall-check" /></label></th>
+                    <th></th>
+                    <th></th>
+                    <th class="th-sortable" data-sort="name"><span>Name</span></th>
+
+                    <th class="th-sortable" data-sort="author"><span>Author</span></th>
+                    <th class="th-sortable active" data-sort="date"><span>Date</span></th>
+                    <th class="th-sortable" data-sort="version"><span>Version</span></th>
+                    <th class="th-sortable" data-sort="public"><span>Public</span></th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><span>Name</span></td>
+
+                    <td><span>Author</span></td>
+                    <td><span>Date</span></td>
+                    <td><span>Version</span></td>
+                    <td><span>Public</span></td>
+                    <td>Options</td>
+                </tr>
+                </tfoot>
+                <tbody id="table-view-body">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+
+
+ 
+
+
+ 
+    <template class="tpl-comment-options">
+        <div class="wui-dropdown" style="display: inline-block">
+            <button class="wui-btn-icon"><i class="material-icons">more_vert</i></button>
+            <ul>
+                <li class="a-comment-edit"><i class="material-icons">edit</i>Edit</li>
+                <li class="a-comment-delete"><i class="material-icons">delete</i>Delete</li>
+            </ul>
+        </div>
+    </template>
+    <template class="tpl-folder">
+        <div class="wui-component">
+            <input type="text" autocomplete="off" placeholder="lang(Name)" id="folder-name">
+        </div>
+    </template>
+    <template class="tpl-project">
+        <div class="wui-component">
+            <input type="text" placeholder="lang(Project Name)" autocomplete="off" id="project-name">
+        </div>
+    </template>
+    <template class="tpl-file">
+        <div class="wui-component the-uploader">
+            <div class="upload-box">
+                <i class="material-icons">cloud_upload</i>
+                <p>Choose a file or drag it here</p>
+                <input type="file" id="fileToUpload" />
+            </div>
+            <div class="upload-box-list">
+                <table>
+
+                </table>
+            </div>
+        </div>
+    </template>
+    <template class="name-conflict-dialog">
+        <div class="name-conflict-dialog-container">
+            <div class="field-holder">
+                <label class="wui-check">
+                    <input type="radio" name="name-conflict-dialog-action" value="rename">
+                    <span>Rename</span>
+                </label>
+                <div class="wui-component name-conflict-dialog-action name-conflict-dialog-action-rename">
+                    <div class="field-holder">
+                        <input type="text" name="new-name-field">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-holder">
+                <label class="wui-check">
+                    <input type="radio" name="name-conflict-dialog-action" value="overwrite">
+                    <span>Replace</span>
+                </label>
+            </div>
+            <!-- <div class="field-holder">
+                <label class="wui-check">
+                    <input type="radio" name="name-conflict-dialog-action" value="skip">
+                    <span>Skip</span>
+                </label>
+            </div> -->
+        </div>
+    </template>
+    <template class="tpl-menu">
+        <ul class="object-context-menu">
+            <li class="a-object-rename" data-perm="modifyObject">Rename</li>
+            <li class="a-object-copy" data-perm="modifyObject">Copy to</li>
+            <li class="a-object-move" data-perm="modifyObject">Move to</li>
+            <li class="a-object-upload-new-version" data-perm="modifyObject">Upload New Version </li>
+            <li class="a-object-manage-version" data-perm="modifyObject">History</li>
+            <li class="a-object-manage-access" data-perm="modifyObject">Access</li>
+            <li class="a-object-trash" data-perm="modifyObject">Move to trash</li>
+            <li class="a-object-delete" data-perm="deleteObject">Delete permanently</li>
+    </template>
+    
+    <template class="tpl-manageAccess">
+        <div class="manage-access-select">
+            <style>
+                .manage-access-select-row{
+                    display: flex;
+                }
+                .manage-access-select-col + .manage-access-select-col{
+                    margin-left: 4%;
+                }
+                .manage-access-select-col{
+                    width: 48%;
+                }
+
+                #wui-list-box-project-groups label +label,
+                #wui-list-box-project-users label +label{
+                    margin-top: 15px;
+                }
+                #wui-list-box-project-groups label,
+                #wui-list-box-project-users label{
+                    display: block;
+                }
+                #wui-list-box-project-groups,
+                #wui-list-box-project-users{
+                    max-height: calc( 100vh - 300px );
+                    padding-top: 15px;
+                }
+                .manage-access-select-col .wui-btn{
+                    margin-top: 20px;
+                }
+            </style>
+
+            <div class="field-holder">
+                <select class="wui-field" style="display: none">
+                    <option value="all">Default <small>(All users that have access to this project)</small></option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="field-holder project-users-selector-holder" style="display: none">
+                <div class="manage-access-select-row">
+                    <div class="manage-access-select-col">
+                        <div class="field-holder" data-icon="search">
+                            <input type="text" placeholder="Project users" class="wui-field wui-field-lite" oninput="w7.rootSearch(this.value, '#wui-list-box-project-users');" />
+                        </div>
+                        <div class="wui-list-search-box" id="wui-list-box-project-users">
+
+                        </div>
+                        <span class="wui-btn wui-btn-lite" onclick="goToAdmin('users');w7.thisDialog(this).remove()">Manage project users</span>
+
+                    </div>
+                    <div class="manage-access-select-col">
+                        <div class="field-holder" data-icon="search">
+                            <input type="text" placeholder="Project groups" class="wui-field wui-field-lite" oninput="w7.rootSearch(this.value, '#wui-list-box-project-groups');" />
+                        </div>
+                        <div class="wui-list-search-box" id="wui-list-box-project-groups">
+
+                        </div>
+                        <span class="wui-btn wui-btn-lite" onclick="goToAdmin('access-groups');w7.thisDialog(this).remove();">Manage project groups</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </template>
+
+
+    <template class="tpl-doc-request-for-sign">
+        <div id="doc-sign-user-list"></div>
+    </template>
+    <template class="tpl-doc-sign">
+
+        <div class="wui-component">
+            <div class="field-holder">
+                <label>Enter your password to sign document</label>
+                <input type="password" name="password" placeholder="******">
+            </div>
+
+            <div class="field-holder">
+                <label>Enter your signature</label>
+                <div id="sign-pad-canvas" style="display: inline-block;border: 1px solid #dbdbdb;border-radius: 4px;"></div>
+                <span class="wui-btn-link" id="sign-pad-canvas-clearButton">Clear</span>
+            </div>
+
+            
+
+      
+
+        </div>
+    </template>
+
+
+
+
+ 
+ 
+
+</body>
+</html>

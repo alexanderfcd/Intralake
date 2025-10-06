@@ -1,0 +1,138 @@
+<template class="tpl-comment-options">
+    <div class="wui-dropdown" style="display: inline-block">
+        <button class="wui-btn-icon"><i class="material-icons">more_vert</i></button>
+        <ul>
+            <li class="a-comment-edit"><i class="material-icons">edit</i>Edit</li>
+            <li class="a-comment-delete"><i class="material-icons">delete</i>Delete</li>
+        </ul>
+    </div>
+</template>
+<template class="tpl-folder">
+    <div class="wui-component">
+        <input type="text" autocomplete="off" placeholder="lang(Name)" id="folder-name">
+    </div>
+</template>
+<template class="tpl-project">
+    <div class="wui-component">
+        <input type="text" placeholder="lang(Project Name)" autocomplete="off" id="project-name">
+    </div>
+</template>
+<template class="tpl-file">
+    <div class="wui-component the-uploader">
+        <div class="upload-box">
+            <i class="material-icons">cloud_upload</i>
+            <p>Choose a file or drag it here</p>
+            <input type="file" id="fileToUpload" />
+        </div>
+        <div class="upload-box-list">
+            <table>
+
+            </table>
+        </div>
+    </div>
+</template>
+<template class="name-conflict-dialog">
+    <div class="name-conflict-dialog-container">
+        <div class="field-holder">
+            <label class="wui-check">
+                <input type="radio" name="name-conflict-dialog-action" value="rename">
+                <span>Rename</span>
+            </label>
+            <div class="wui-component name-conflict-dialog-action name-conflict-dialog-action-rename">
+                <div class="field-holder">
+                    <input type="text" name="new-name-field">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-holder">
+            <label class="wui-check">
+                <input type="radio" name="name-conflict-dialog-action" value="overwrite">
+                <span>Replace</span>
+            </label>
+        </div>
+        <!-- <div class="field-holder">
+            <label class="wui-check">
+                <input type="radio" name="name-conflict-dialog-action" value="skip">
+                <span>Skip</span>
+            </label>
+        </div> -->
+    </div>
+</template>
+<template class="tpl-menu">
+    <ul class="object-context-menu">
+        <li class="a-object-rename" data-perm="modifyObject">Rename</li>
+        <li class="a-object-copy" data-perm="modifyObject">Copy to</li>
+        <li class="a-object-move" data-perm="modifyObject">Move to</li>
+        <li class="a-object-upload-new-version" data-perm="modifyObject">Upload New Version </li>
+        <li class="a-object-manage-version" data-perm="modifyObject">History</li>
+        <li class="a-object-manage-access" data-perm="modifyObject">Access</li>
+        <li class="a-object-trash" data-perm="modifyObject">Move to trash</li>
+        <li class="a-object-delete" data-perm="deleteObject">Delete permanently</li>
+    </ul>
+</template>
+ 
+<template class="tpl-manageAccess">
+    <div class="manage-access-select">
+        <style>
+            .manage-access-select-row{
+                display: flex;
+            }
+            .manage-access-select-col + .manage-access-select-col{
+                margin-left: 4%;
+            }
+            .manage-access-select-col{
+                width: 48%;
+            }
+
+            #wui-list-box-project-groups label +label,
+            #wui-list-box-project-users label +label{
+                margin-top: 15px;
+            }
+            #wui-list-box-project-groups label,
+            #wui-list-box-project-users label{
+                display: block;
+            }
+            #wui-list-box-project-groups,
+            #wui-list-box-project-users{
+                max-height: calc( 100vh - 300px );
+                padding-top: 15px;
+            }
+            .manage-access-select-col .wui-btn{
+                margin-top: 20px;
+            }
+        </style>
+
+        <div class="field-holder">
+            <select class="wui-field" style="display: none">
+                <option value="all">Default <small>(All users that have access to this project)</small></option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+
+        <div class="field-holder project-users-selector-holder" style="display: none">
+            <div class="manage-access-select-row">
+                <div class="manage-access-select-col">
+                    <div class="field-holder" data-icon="search">
+                        <input type="text" placeholder="Project users" class="wui-field wui-field-lite" oninput="w7.rootSearch(this.value, '#wui-list-box-project-users');" />
+                    </div>
+                    <div class="wui-list-search-box" id="wui-list-box-project-users">
+
+                    </div>
+                    <span class="wui-btn wui-btn-lite" onclick="goToAdmin('users');w7.thisDialog(this).remove()">Manage project users</span>
+
+                </div>
+                <div class="manage-access-select-col">
+                    <div class="field-holder" data-icon="search">
+                        <input type="text" placeholder="Project groups" class="wui-field wui-field-lite" oninput="w7.rootSearch(this.value, '#wui-list-box-project-groups');" />
+                    </div>
+                    <div class="wui-list-search-box" id="wui-list-box-project-groups">
+
+                    </div>
+                    <span class="wui-btn wui-btn-lite" onclick="goToAdmin('access-groups');w7.thisDialog(this).remove();">Manage project groups</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</template>

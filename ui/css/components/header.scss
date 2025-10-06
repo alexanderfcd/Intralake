@@ -1,0 +1,21 @@
+.user-header-menu button{
+    vertical-align: top
+}
+
+
+#header-tokens-button{
+    vertical-align: top;
+    border-color: transparent;
+    margin-inline-end: var(--gap);
+    svg{
+        width: 22px;
+        vertical-align: middle;
+        margin-inline-start: 7px;
+    }
+}
+
+
+.user-header-menu .wui-btn{
+    box-shadow: none;
+    padding: 0;
+}

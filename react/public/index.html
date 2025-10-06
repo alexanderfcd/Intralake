@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/fav/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/fav/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/fav/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/fav/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/fav/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/fav/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/fav/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/fav/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/fav/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="%PUBLIC_URL%/fav/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/fav/favicon-16x16.png">
+    <link rel="manifest" href="%PUBLIC_URL%/fav/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-vivid.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/tagify.css">
+    <link rel="stylesheet" type="text/css" href="/assets/libs/prism.css">
+    <link href="/assets/libs/selectize/selectize.css" type="text/css" rel="stylesheet"  />
+    <link rel="stylesheet" type="text/css" href="/assets/css/wui.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/widgets.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/sections.css">
+
+    <script>
+// todo: remove
+
+
+var _events = {};
+window.il = {
+  on:  function (e, f) { _events[e] ? _events[e].push(f) : (_events[e] = [f]); return this; },
+  dispatch: function (e, f) { _events[e] ? _events[e].forEach(function (c){ c.call(this, f); }) : ''; },
+}
+
+il.sscodes = {
+
+}
+    </script>
+
+    <script src="/assets/js/polyfills.js"></script>
+    <script src="/assets/libs/jquery.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+    <script src="https://unpkg.com/html-fragment@1.1.0/lib/html-fragment.min.js"></script>
+
+
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+
+
+    <script src="/assets/libs/moment.min.js"></script>
+    <script src="/assets/libs/md5.min.js"></script>
+
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/libs/tagify.min.js"></script>
+    <script src="/assets/libs/jquery.csv.min.js"></script>
+
+    <script src="/assets/js/globals.js"></script>
+    <script src="/assets/js/uiperms.js"></script>
+    <script src="/assets/js/user.js"></script>
+    <script src="/assets/js/modal.js"></script>
+    <script src="/assets/js/multipart-uploader.js"></script>
+    <script src="/assets/js/s3-multipart-upload.js"></script>
+    <script src="/assets/js/widgets.js"></script>
+    <script src="/assets/js/xhr.js"></script>
+    <script src="/assets/js/project.js"></script>
+    <script src="/assets/js/objects.js"></script>
+
+    <script src="/assets/js/uploadbox.js"></script>
+
+    <script src="/assets/js/events.js"></script>
+    <script src="/assets/js/tooltip.js"></script>
+    <script src="/assets/libs/prism.js"></script>
+    <script src="/assets/js/tree.js"></script>
+    <script src="/assets/js/path.js"></script>
+    <script src="/assets/js/view.js"></script>
+    <script src="/assets/js/view.files.js"></script>
+    <script src="/assets/js/roles.js"></script>
+    <script src="/assets/js/access-groups.js"></script>
+    <script src="/assets/js/admin-users.js"></script>
+
+
+
+    <script src="/assets/js/comments.js"></script>
+
+    <script src="/assets/libs/selectize/selectize.min.js"></script>
+
+    <script>
+
+
+il.config = {
+    homeURL: w7.Config.home,
+    logo: {
+        tag: 'a',
+        className: 'navbar-brand',
+        innerHTML: 'IntraLake.',
+    }
+}
+
+il.config.logo.href = il.config.homeURL
+
+
+il.progressbar = function () {
+    var el = document.createElement('div');
+    el.classList.add('il-progress-circle');
+    var donemark = `<svg xmlns="http://www.w3.org/2000/svg"  class="il-progress-circle-done" viewBox="0 0 24 24" fill="#4285f4"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" /></svg>`;
+
+
+    el.innerHTML = `<svg class="progress-circle" viewBox="0 0 44 44">
+    <text x="22" y="22" font-size="7" text-anchor="middle" alignment-baseline="central"></text>
+    <circle class="bg" r="16" cx="22" cy="22" stroke-width="4" fill="none"></circle>
+    <circle class="progress" r="16" cx="22" cy="22" transform="rotate(-90, 22, 22)" stroke-width="4" fill="none" stroke-dasharray="100" stroke-dashoffset="21.5"></circle>
+ </svg>${donemark}`;
+
+    this.node = el;
+    var v = 0;
+
+    this.invisible = function () {
+        this.node.style.visibility = 'hidden';
+        this.node.style.opacity = '0';
+    }
+
+    this.visible = function () {
+        this.node.style.visibility = '';
+        this.node.style.opacity = '';
+    }
+
+    this.hide = function () {
+        this.node.style.display = 'none';
+    }
+
+    this.show = function () {
+        this.node.style.display = '';
+    }
+
+    this.value = function (val, label) {
+        if(typeof val === 'undefined') {
+            return v;
+        }
+        val = parseFloat(val);
+        val = Math.round(val);
+        v = val;
+        if(label) {
+            el.querySelector('svg text').innerHTML = val + '%';
+        }
+
+        el.querySelector('circle.progress').style.strokeDashoffset = 100 - val;
+        if(v === 100) {
+            el.classList.add('ready');
+        }
+        this.node.dataset.value = val;
+
+    }
+    this.value(v);
+}
+
+
+
+
+
+    </script>
+
+
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>IntraLake</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

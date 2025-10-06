@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script>
+        window.top.document.title;
+        const searchParams = new URLSearchParams(location.search);
+        let doc = searchParams.get("src");
+        let type = searchParams.get("type");
+        
+        
+        if(doc) {
+            doc = decodeURI(doc);
+        }
+
+        if(type) {
+            type = decodeURI(type);
+        }
+
+        window.__$$currentDocument = doc
+        window.__$$currentDocumentType = type
+         
+    </script>
+
+   
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #editor{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+   
+</head>
+<body>
+ 
+   <div id="editor"></div> 
+
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-base/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-inputs/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-buttons/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-splitbuttons/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-lists/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-navigations/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-popups/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-dropdowns/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-grids/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/29.1.33/ej2-spreadsheet/styles/material.css" rel="stylesheet">
+   <link href="styles.css" rel="stylesheet">
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/shim.min.js"></script>
+   
+<script src="https://cdn.syncfusion.com/ej2/29.1.33/dist/ej2.min.js" type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/syncfusion-helper.js" type ="text/javascript"></script>
+ 
+   <script  >
+
+
+       addEventListener('load', () => {
+        var spreadsheet = new ej.spreadsheet.Spreadsheet({
+            height: '100vh', 
+            openUrl: 'http://localhost:6003/api/spreadsheet/open',
+
+            saveUrl: null,
+     saveUrl: 'http://localhost:6003/api/spreadsheet/save',
+            isReadOnly: false,
+            allowOpen: true,
+
+
+            beforeSave: (args) => {
+                args.needBlobData = true; // To trigger the saveComplete event.
+                args.isFullPost = false; // Get the spreadsheet data as blob data in the saveComplete event.
+              },
+            
+              saveComplete: (args) => {
+                // To obtain the blob data
+                console.log(args);
+                const blob = args.blobData
+              }
+        });
+
+        // Render initialized Spreadsheet.
+        spreadsheet.appendTo('#editor');
+
+ window.spreadsheet = spreadsheet;
+ 
+
+           if(window.__$$currentDocument) {
+
+
+           console.log(1)
+ 
+            fetch( window.__$$currentDocument)
+            .then(async res => {
+                console.log(5)
+                const buff = await res.blob();
+ 
+                 
+     
+
+                  let file = new File([blob], "Sample.xlsx"); //convert the blob into file
+                  spreadsheet.open({ file: file });
+
+               // spreadsheet.open(buff);
+                 
+            }).catch(e => {
+         
+            });
+ 
+
+
+            
+           }
+
+           
+       })
+
+   </script>
+
+</body>
+</html>

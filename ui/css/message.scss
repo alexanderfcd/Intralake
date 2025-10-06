@@ -1,0 +1,24 @@
+.il-message {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    padding: 12px;
+    border-radius: 7px;
+}
+.il-message-info{
+background-color: #638dff34;
+}
+
+
+.il-message-warn,
+.il-message-warning{
+background-color: #ffc86334;
+}
+
+.il-message-error{
+background-color: #ff636334;
+}
+
+.il-message-success{
+background-color: #01ff73b0;
+}

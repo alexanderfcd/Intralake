@@ -1,0 +1,250 @@
+<div class="wui-component">
+
+
+
+    <div id="billing-root"  >
+        <div class="richtext">
+            <p class="il-title-3">IntraLake operates on a credit-based system, giving you the flexibility to pay for services as you use them</p>
+        </div>
+
+
+        <div class="il-card il-card-big" id="block-success" style="display: none;">
+            <div class="il-card-header">
+                <h2 class="il-title-6 il-color-success">Success</h2>
+             </div>
+            <div class="il-card-content">
+                 <div class="richtext" style="text-align: center;">
+                    <h5 class="il-title-5">Thank you for your purchase</h5>
+                    <h6 class="il-title-6"><span id="credits-success-value"></span> credits has been added to your account</h6>
+                   
+                 </div>
+            </div>
+            <div class="il-card-footer">
+                <a type="button" class="wui-btn wui-btn-outline" href="/">Back to Projects</a>
+ 
+            </div>
+ 
+        </div>
+
+        <div class="il-card il-card-big" id="block-error" style="display: none;">
+            <div class="il-card-header">
+                <h2 class="il-title-6 il-color-error">Error</h2>
+             </div>
+            <div class="il-card-content">
+                 <div class="richtext">
+                    <h5 class="il-title-5">Error completing your order</h5>
+          
+                   
+                 </div>
+            </div>
+ 
+        </div>
+    
+        <div class="il-card il-card-big" id="block-payment" style="display: none;">
+            <div class="il-card-content">
+                <div id="payment-element" style="min-height: 100px;"></div>
+            </div>
+            <div class="il-card-footer">
+ 
+                <button type="button" class="wui-btn wui-btn-prime" id="btn-make-payment" tabindex="1">Purchase credits</button>
+            </div>
+        </div>
+        <div class="il-card il-card-big" id="block-order" style="display: none;">
+            <div class="il-card-header">
+               <h2 class="il-title-6">Buy Credits</h2>
+            </div>
+            <div class="il-card-content">
+                
+                <label>Number of credits</label>
+                <input type="number" min="1" step="1" id="custom-tokens-input" placeholder="e.g.:572" value="100" autofocus tabindex="1" max="20000">
+            </div>
+            <div class="il-card-footer">
+                <span id="custom-tokens-total">Total:   $<span id="custom-tokens-input-total">0</span>.00</span>
+                <button type="button" class="wui-btn wui-btn-prime" id="btn-make-create-order" tabindex="2">Purchase credits</button>
+            </div>
+        </div>
+    
+        <hr class="hr hr-1 hr-space-5">
+ 
+        
+        <span class="il-title-4">Would you rather purchase an unlimited subscription or custom solution?</span>
+        <div class="v-space v-space-2"></div>
+        <a href="https://intralake.com/contact" target="_blank" class="wui-btn wui-btn-prime wui-btn-primer">Contact us</a>
+    
+        
+
+    </div>
+</div>
+
+ 
+
+ 
+<link rel="stylesheet" href="/stripe-css">
+ 
+
+<style>
+    .tkn-btn{
+        padding: 20px;
+ 
+        cursor: pointer;
+        border-radius: 5px;
+    
+    }
+
+    #billing-root .il-card{
+        width: calc(25% - 20px);
+        margin: 0;
+    }
+    #billing-root .il-card{
+        margin: 50px auto   ;
+        width: 600px;
+        text-align: left;
+    }
+    #billing-root{
+        text-align: center;
+        padding: 110px 0;
+        max-width: 888px;
+        margin: auto;
+
+    }
+
+    .wui-btn-primer{
+        background-color: rgb(19, 0, 32) !important; 
+    }
+
+
+    #custom-tokens-input{
+        font-size: 22px;
+ 
+ 
+        height: auto;
+        padding: 10px;
+        display: block;
+        margin: auto;
+    }
+    #custom-tokens-total{
+        font-size: 25px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+<script>
+
+    ;(async function(){
+        const enableStripe = true;
+
+        if(location.href.indexOf('success=true') !== -1) {
+            document.getElementById('block-success').style.display = '';
+            const params = new URLSearchParams(location.search);
+            const value = parseInt(params.get("value"));
+            document.getElementById('credits-success-value').innerHTML = value;
+            document.getElementById('credits-success-value').style.display = '';
+            return;
+
+        } else if (location.href.indexOf('success=false') !== -1){
+            document.getElementById('block-error').style.display = '';
+
+            return;
+        }
+
+        document.getElementById('block-order').style.display = '';
+
+        
+        await il.scriptLoader('https://js.stripe.com/v3');
+        await il.scriptLoader(`${w7.Config.api.domain}/stripe-js`);
+
+        const ud = w7.storage('userData');
+
+        if(!ud) {
+            return;
+        }
+ 
+        
+
+        let _order;
+
+        document.getElementById('btn-make-payment').addEventListener('click', async function (e){
+
+
+
+ 
+            if(enableStripe) {
+                // await ilStripe.handleSubmit(`${location.origin}${location.pathname}?state=payment-success&credits-order=${_order._id}` );
+                await ilStripe.handleSubmit(`${w7.Config.api.root}/complete-credits-order?state=payment-success&credits-order=${_order._id}&foruser=${_order.forUser}` );
+            }
+
+        });
+
+
+        
+
+        document.getElementById('btn-make-create-order').addEventListener('click', async function (e){
+            e.preventDefault();
+
+            
+            wuic.preload(true, '.il-card', true);
+            const val = document.getElementById('custom-tokens-input').value;
+
+            const xhr = w7.xhr.createCreditsOrder(val);
+
+        
+
+            const [data, err] = await xhr.await();
+
+  
+ 
+            if(err) {
+                _order = undefined;
+                wuic.preload(false, '.il-card', true);
+                return;
+            }
+
+            _order = data;
+
+                ilStripe.settings.apiRoot = w7.Config.api.domain;
+
+                wuic.preload(true, '.il-card', true);
+
+                document.getElementById('block-payment').style.display = '';
+                document.getElementById('block-order').style.display = 'none';
+
+                if(enableStripe) {
+                 
+                    await ilStripe.initialize(val, 'usd', ud.lang);
+                }
+
+                wuic.preload(false, '.il-card', true);
+            
+           
+        });
+
+
+
+        const valueField = document.getElementById('custom-tokens-input');
+        const valueFieldTotal = document.getElementById('custom-tokens-input-total');
+ 
+        valueField.addEventListener('input', () => {
+            
+            let val = Math.max(Math.floor(Math.abs(valueField.value || 1)), 1);
+
+            if(val > 20000) {
+                valueField.value = 20000;
+                val = 20000;
+            }
+     
+            valueFieldTotal.textContent = val;
+        });
+        valueFieldTotal.textContent = Math.floor(Math.abs(valueField.value || 0));
+        Array.from(document.querySelectorAll('.tkn-btn')).forEach(node => {
+            node.addEventListener('click', e => {
+                valueField.value = (node.dataset.value);
+            })
+        })
+        
+
+    })();
+
+
+</script>

@@ -1,0 +1,30 @@
+
+
+<div class="wui-card wui-card-in wui-component small-action-card">
+    <div class="wui-card-header">
+        <h3><lang>Register</lang></h3>
+    </div>
+    <form onsubmit="w7.handle.register(event)">
+            <div class="field-holder">
+                <label><lang>Email</lang></label>
+                <input type="text" name="email" placeholder="email@example.com" />
+                <span class="error" data-error data-path="email"></span>
+            </div>
+            <div class="field-holder">
+                <label><lang>Password</lang></label>
+                <input type="password" name="password" placeholder="********" />
+                <span class="error" data-error data-path="password"></span>
+            </div>
+            <div class="field-holder">
+                <label><lang>Confirm Password</lang></label>
+                <input type="password" name="password" placeholder="********"  />
+                <span class="error" data-error data-path="password"></span>
+            </div>
+            <span class="error" data-error data-path="credentials"></span>
+            <div class="wui-card-footer">
+                <button type="submit" class="btn-position-main"><lang>Create account</lang></button>
+                <a href="/login" class="wui-btn-link btn-position-alt"><lang>Log In</lang></a>
+                <a href="/reset-password" class="wui-btn-link btn-position-sub"><lang>Forgot password</lang></a>
+            </div>
+    </form>
+</div>

@@ -1,0 +1,156 @@
+
+<!--
+
+addUser: true,
+removeUser: true,
+createObject: true,
+deleteObject: true,
+modifyObject: true,
+previewObject: true,
+createRole: true,
+deleteRole: true,
+modifyRole: true,
+
+
+-->
+<div class="view view-role-edit" data-permsection="modifyRole">
+
+
+
+    <div class="wtabs">
+        <ul class="wtab-nav" style="display: none">
+            <span class="wui-btn active">Settings</span>
+            <span class="wui-btn">USERS</span>
+            <span class="wui-btn" data-permsection="deleteRole">DELETE ROLE</span>
+        </ul>
+        <div class="wtab active wtab-content">
+            <form method="post" action="" onsubmit="w7.role.handleSubmit(event);" id="edit-role-form">
+                <div class="field-holder">
+                    <label><lang>Role name</lang></label>
+                    <input type="text" name="name" oninput="w7.pageTitle(this.value);" autocomplete="off" />
+                    <span class="error" data-error data-path="name"></span>
+                </div>
+                <!--
+                    <div class="field-holder">
+                        <label class="wui-check">
+                            <input type="checkbox" name="addUser">
+                            <span></span>
+                            <span>Can add user?</span>
+                        </label>
+                    </div>
+                    <div class="field-holder">
+                        <label class="wui-check">
+                            <input type="checkbox" name="removeUser">
+                            <span></span>
+                            <span>Can remove user?</span>
+                        </label>
+                    </div>
+                -->
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="createObject">
+                        <span><lang>Can create Object</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="deleteObject">
+                        <span><lang>Can delete Object</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="modifyObject">
+                        <span><lang>Can modify Object</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="previewObject">
+                        <span><lang>Can preview Object</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="createRole">
+                        <span><lang>Can create roles and access groups</lang> ?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="deleteRole">
+                        <span><lang>Can delete roles and access groups</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="modifyRole">
+                        <span><lang>Can modify roles and access groups</lang>?</span>
+                    </label>
+                </div>
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="canComment">
+                        <span><lang>Can comment</lang>?</span>
+                    </label>
+                </div>
+
+                <div class="field-holder">
+                    <label class="wui-check">
+                        <input type="checkbox" name="monitorActivity">
+                        <span><lang>Monitor Activity</lang>?</span>
+                    </label>
+                </div>
+
+
+                <div class="wtab-footer">
+                    <!--<span class="wui-btn">Cancel</span>-->
+                    <button type="submit" disabled="true" class="wui-btn wui-btn-c role-submit-btn"><lang>Save</lang></button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="wtab wtab-content">
+            <div id="role-users-add">
+                <button
+
+                        type="button"
+                        class="wui-btn wui-btn-outline"
+                        onclick="w7.roles.addUserDialog(true)">
+                    <span class="material-icons">group_add</span>
+                    <lang>Add User</lang>
+                </button>
+            </div>
+            <div id="role-users-holder"><div class="role-no-users"></div> </div>
+
+        </div>
+        <div class="wtab wtab-content">
+        <div class="richtext">
+           <p><lang>Role can be deleted only if it has no assigned users</lang>.</p>
+            <p>
+                <button class="wui-btn wui-btn-outline j-delete-role-button">Confirm deletion</button>
+            </p>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    w7.each('.j-delete-role-button', function (){
+        this.onclick = function (){
+            var role = il.LakeStore.get('currentRole');
+             w7.confirm(lang('Delete role') + ' "<b>' + role.name + '</b>"?', function () {
+                w7.role.deleteRole(getPathParam('roles'), function (){
+                    goToAdmin('roles');
+                })
+            })
+        }
+    });
+    w7.each('[name="name"], .field-holder input', function (){
+        this.oninput = function (){
+            document.querySelector('.role-submit-btn').disabled = !document.querySelector('[name="name"]').value.trim()
+        }
+    });
+</script>

@@ -1,0 +1,101 @@
+body{
+    min-height: 100vh;
+}
+
+#access-groups-root tbody td{
+    cursor: pointer;
+}
+
+#main-block{
+    min-height: calc(100vh - 170px);
+}
+#main-block,#app{
+
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding: 0;
+    max-width:96%
+}
+
+#app-container{
+    padding-top: var(--app-top-distance);
+}
+
+#footer,
+#footer a{
+    color: rgba(119, 119, 119, 0.71);
+}
+#footer{
+    display: flex;
+    clear: both;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 16px;
+}
+
+.projects-page .page-title {
+    padding-bottom: 20px;
+}
+.projects-page{
+    padding: 20px 0 0;
+}
+
+.project-btn-welcome .project-btn-image{
+    padding: 50px 15%;
+}
+.project-btn-welcome {
+    width: 480px;
+    font-size: 16px;
+    display: block;
+    margin: auto;
+}
+.project-btn-welcome .project-btn-bottom{
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.project-btn-image-welcome:before{
+    content: 'help_outline';
+    font-family: "Material Icons";
+    color: #1467af;
+    position: absolute;
+    top: 4px;
+    font-size: 24px;
+    left: 0;
+}
+.project-btn-image-welcome {
+
+    font-weight: 500;
+    font-size: 20px;
+    padding-bottom: 10px;
+
+    position: relative;
+}
+.project-btn-image-welcome,
+.project-btn-image-welcome-info{
+    display: block;
+    padding-left: 35px;
+}
+
+
+#profile-block{
+    max-width: 600px;
+    margin: 60px auto;
+}
+
+body.night-mode {
+    background-color: #081325;
+}
+body.night-mode .wui-card {
+
+    background: #000e1f;
+
+}
+
+body.night-mode .app-bar {
+
+    background-color: #f9f9f914;
+}
+body.night-mode a, body.night-mode{
+    color: rgba(255, 255, 255, .88);
+}

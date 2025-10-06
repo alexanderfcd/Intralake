@@ -1,0 +1,23 @@
+#main-object-view{
+    text-emphasis: none;
+}
+
+#object-view-header{
+    padding: var(--gap);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.wui-table-sortable th.th-sortable span:after{
+    content: ' ';
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 2px;
+    position: absolute;
+    top: calc(50% - 12px);
+    transition: all .6s;
+}

@@ -1,0 +1,36 @@
+
+<script>
+    $(document).ready(function(){
+        w7.xhr.logged(function(logged){
+            if(logged) {
+               goToHome()
+            }
+
+        });
+
+    })
+</script>
+
+<div class="wui-card wui-card-in wui-component">
+    <div class="wui-card-header">
+        <h3>Log in to continue </h3>
+    </div>
+    <form onsubmit="w7.handle.login(event);">
+        <div class="field-holder">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="email@example.com" />
+            <span class="error" data-error data-path="email"></span>
+        </div>
+        <div class="field-holder">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="********" />
+            <span class="error" data-error data-path="password"></span>
+        </div>
+        <span class="error" data-error data-path="credentials"></span>
+        <div class="wui-card-footer">
+            <button type="submit" class="btn-position-main">Log In</button>
+            <a href="/register" class="wui-btn-link btn-position-alt">Create account</a>
+            <a href="/reset-password" class="wui-btn-link btn-position-sub">Forgot password</a>
+        </div>
+    </form>
+</div>

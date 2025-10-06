@@ -1,0 +1,61 @@
+
+<div class="view view-object wui-object">
+    <div id="main-object-view-root">
+        <div id="main-object-view">
+
+        </div>
+        <div class="ov-context ov-context-preview">
+
+
+             
+            <a class="wui-btn-link" id="ov-download"><i class="material-icons">download_for_offline</i><span><lang>DOWNLOAD</lang></span></a>
+            <span class="wui-btn-link" onclick="w7.objects.uploadVersionDialog(getObject())"><i class="material-icons">upload</i><span><lang>UPLOAD NEW VERSION</lang></span></span>
+        </div>
+        <div class="ov-context ov-context-edit" style="display: none">
+            <button class="wui-btn wui-btn-outline" onclick="w7.service.goto('object')"><lang>Back</lang></button>
+            <button class="wui-btn-prime btn-editor-save" disabled>Save</button>
+        </div>
+
+
+    </div>
+    <div class="object-info">
+        <div class="object-info-wtab">
+
+            <table  class="wui-table object-info-props nohover">
+                <tr><td>Type</td><td class="oit-type"></td></tr>
+                <tr><td>Author</td><td class="oit-author"></td></tr>
+                <tr><td>Last modified by</td><td class="oit-modified"></td></tr>
+                <tr><td>Tags</td><td class="oit-tags"></td></tr>
+                <tr><td>Created</td><td class="oit-created"></td></tr>
+                <tr><td>Updated</td><td class="oit-updated"></td></tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="wtabs object-preview-data-tabs">
+        <ul class="wtab-nav">
+            <span class="wui-btn active">Notes & Comments</span>
+            <span class="wui-btn">HISTORY</span>
+        </ul>
+        <div class="wtab active">
+            <div class="comments">
+
+
+                <form data-perm="canComment" onsubmit="w7.handle.comment(event);" id="form-comments" style="display: none">
+                    <input type="hidden" name="id">
+                    <textarea name="comment" data-key="comment" placeholder="Enter private comment..."></textarea>
+                    <span class="error" data-error data-path="comment"></span>
+                    <button type="submit">SUBMIT</button>
+                    <span class="wui-btn-link">CANCEL</span>
+                </form>
+
+                <div class="comments-list"></div>
+
+            </div>
+        </div>
+
+        <div class="wtab object-info-versions ">
+
+        </div>
+    </div>
+</div>

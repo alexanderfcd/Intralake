@@ -1,0 +1,127 @@
+<div class="access-group-edit-page">
+    <form onsubmit="w7.handle.accessGroup(event)">
+
+        <div class="field-holder">
+            <label><lang>Group name</lang></label>
+            <input type="text" name="name" placeholder="Name" autocomplete="off" />
+        </div>
+        <div class="field-holder">
+            <label><lang>Select users which will be able to access this group</lang></label>
+
+            <div class="field-holder" id="group-users-search" data-icon="search" style="display: none;padding-bottom: 15px">
+                <input type="text" placeholder="lang(Filter users)" class="wui-field wui-field-lite" oninput="w7.rootSearch(this.value, '#users-list');">
+            </div>
+
+            <div id="users-list"></div>
+        </div>
+        <div class="form-footer">
+
+            <button type="button" class="wui-btn wui-btn-outline delete-ag" style="display: none">Delete</button>
+            <button type="submit" class="wui-btn-prime" disabled ></button>
+        </div>
+    </form>
+    <script>
+
+
+        var ListItemsSelector = function (data, element, noItemsMessage) {
+            if(!data) return;
+            var root = element.indexOf ? document.querySelector(element) : element;
+
+            root.className = 'list-item-selector';
+            var name = 'ListItemsSelector' + Math.floor(Math.random() * 900000000).toString(36);
+
+            if(!data.length && noItemsMessage) {
+                root.innerHTML = '<div class="warning"><span class="material-icons">warning</span>' + noItemsMessage + '</div>';
+            }
+
+            for (var i = 0; i< data.length; i++) {
+                var item = document.createElement('div');
+                item.className = 'list-item-selector-item';
+
+                var label = document.createElement('label');
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox'
+                checkbox.value = data[i]._id;
+                checkbox.name = name;
+                label.className ="wui-check"
+
+                label.innerHTML = data[i].title || displayName(data[i]);
+                label.prepend(checkbox)
+                item.appendChild(label)
+
+                root.appendChild(item)
+            }
+             setTimeout(function (){
+                wuic.run()
+            }, 10)
+            return root;
+        }
+
+        $(document).ready(function () {
+
+
+
+            var path = '/project-data/' + getProject();
+            var xhr = w7.bearerScopeGet(w7.apiurl(path), function(data){
+                var opts = data.users;
+
+                if (opts.length > 20) {
+                    $('#group-users-search').show()
+                }
+
+                var selector = $('[name="users"]');
+
+
+
+                var selectorElement = ListItemsSelector(opts, '#users-list', w7.lang('Project has no associated users') + '.')
+
+                var group = getPathParam('access-group');
+
+                $('.delete-ag').on('click', function () {
+                    w7.confirm(function () {
+                        w7.bearerPost(w7.apiurl('/delete-access-group/' + group), function(data){
+                            wuic.notify(lang('Access group deleted'));
+                            setPath('/admin/' + getProject() + '/access-groups')
+                        });
+                    })
+
+                });
+
+                if(group != 0) {
+                    w7.bearerScopeGet(w7.apiurl('/access-group/' + group), function(data){
+                        var val = [];
+                        $.each(data.users || [], function () {
+                            val.push(this._id);
+                            selectorElement.querySelector('input[value="'+this._id+'"]').checked = true
+                        });
+
+                        $('[name="name"]').val(data.name).on('input', function (){
+                            w7.pageTitle(w7.lang('Access group') + ': ' + this.value);
+                            $('.access-group-edit-page [type="submit"]')[0].disabled = !this.value.trim()
+                        });
+                        $('[type="checkbox"]', selectorElement).on('input', function (){
+                            $('.access-group-edit-page [type="submit"]')[0].disabled = !$('[name="name"]')[0].value.trim()
+                         });
+                        w7.pageTitle(w7.lang('Access group') + ': ' + data.name);
+                    });
+                    $('.access-group-edit-page [type="submit"]').html(lang('Save'))
+                    $('.delete-ag').show()
+                } else {
+                    $('.access-group-edit-page [type="submit"]').html(lang('Create'))
+                    $('.delete-ag').remove()
+                    $('[name="name"]')/*.val(data.name)*/.on('input', function (){
+                        w7.pageTitle(w7.lang('Access group') + ': ' + this.value);
+                        $('.access-group-edit-page [type="submit"]')[0].disabled = !this.value.trim()
+                    });
+                    $('[type="checkbox"]', selectorElement).on('input', function (){
+                        $('.access-group-edit-page [type="submit"]')[0].disabled = !$('[name="name"]')[0].value.trim()
+                    });
+                }
+
+
+
+
+            });
+        })
+    </script>
+</div>

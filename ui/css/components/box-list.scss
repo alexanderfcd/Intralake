@@ -1,0 +1,14 @@
+.il-box-list {
+ 
+    .il-box-list-item{
+        display: block;
+        padding: var(--gap);
+        
+        .il-box-list-item-title{
+            color: var(--color-mute);
+        }
+        .il-box-list-item-value{
+            
+        }
+    }
+}

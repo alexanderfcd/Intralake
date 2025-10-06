@@ -1,0 +1,85 @@
+.header{
+  padding: 0 40px;
+  display: flex;
+  height: var(--header-height);
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0dce1;
+}
+.header-main{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+
+.intralake-logo *{
+  vertical-align: middle;
+}
+.intralake-logo{
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  vertical-align: middle;
+
+  position: relative;
+
+  color: #4285f4 !important;
+  min-width:150px;
+}
+
+.intralake-logo-mark{
+
+
+  width: 39px;
+  height: 39px;
+  border-radius: 100px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+
+  margin-inline-end: 10px;
+
+
+}
+
+@media (max-width: 400px) {
+  .intralake-logo {
+    min-width: 50px;
+  }
+  .intralake-logo-mark + span{
+    display: none;
+  }
+}
+
+.intralake-logo-mark:before {
+  top: 0;
+  left: 0;
+  content: "";
+  width: calc(100% );
+  height: calc(100% );
+  border-radius: 100px;
+  display: block;
+  position: absolute;
+  border: 3px solid #1187fd;
+
+
+}
+
+.intralake-logo-mark:after {
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  content: "";
+
+  border-radius: 100px;
+  display: block;
+  position: absolute;
+  border: 3px solid #1187fd;
+
+  opacity: .47;
+}
+
+
+

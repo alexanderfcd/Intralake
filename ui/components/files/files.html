@@ -1,0 +1,50 @@
+<div class="view-files-holder">
+
+    <div class="context-root-menu">
+        <button class="wui-btn wui-btn-icon" wtip="Refresh" onclick="refreshCurrent()"> <i class="material-icons">refresh</i></button>
+        <div class="view-files-multiselect-menu">
+
+            <button class="wui-btn wui-btn-icon" data-perm="deleteObject"  wtip="Delete" onclick=""> <i class="material-icons">delete</i></button>
+        </div>
+    </div>
+1
+    <div class="no-results" id="main-table-viewno-results" style="display: none"  ></div>
+    <div class="responsive-table">
+        <table class="wui-table wui-table-sortable" id="main-table-view">
+            <colgroup>
+                <col width="30" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th> <label class="wui-check"><input type="checkbox" id="selectall-check"   /></label></th>
+                <th></th>
+                <th></th>
+                <th class="th-sortable" data-sort="name"><span>Name</span></th>
+
+                <th class="th-sortable" data-sort="author"><span>Author</span></th>
+                <th class="th-sortable active" data-sort="date"><span>Date</span></th>
+                <th class="th-sortable" data-sort="version"><span>Version</span></th>
+                <th class="th-sortable" data-sort="public"><span>Public</span></th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td>  </td>
+                <td></td>
+                <td></td>
+                <td><span>Name</span></td>
+
+                <td ><span>Autdor</span></td>
+                <td ><span>Date</span></td>
+                <td ><span>Version</span></td>
+                <td ><span>Public</span></td>
+                <td>Options</td>
+            </tr>
+            </tfoot>
+            <tbody id="table-view-body">
+
+            </tbody>
+        </table>
+    </div>
+</div>

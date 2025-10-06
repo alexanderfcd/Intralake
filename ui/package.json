@@ -1,0 +1,46 @@
+{
+  "name": "intralake-vanilla",
+  "version": "1.1.0",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-css-url-adjuster": "^0.2.3",
+    "gulp-dart-sass": "^1.0.2",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^1.5.4",
+    "gulp-watch": "^5.0.1",
+    "gulp-wrap": "^0.15.0",
+    "uglify-js": "^2.6.4",
+    "webpack": "^5.99.6",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@selectize/selectize": "^0.15.2",
+    "@syncfusion/ej2-documenteditor": "^29.1.33",
+    "@syncfusion/ej2-spreadsheet": "^29.1.34",
+    "@tiptap/core": "^2.0.0-beta.118",
+    "@tiptap/extension-image": "^2.0.0-beta.220",
+    "@tiptap/extension-table": "^2.0.0-beta.220",
+    "@tiptap/extension-table-cell": "^2.0.0-beta.220",
+    "@tiptap/extension-table-header": "^2.0.0-beta.220",
+    "@tiptap/extension-table-row": "^2.0.0-beta.220",
+    "@tiptap/pm": "^2.0.0-beta.220",
+    "@tiptap/starter-kit": "^2.0.0-beta.117",
+    "@wolf-table/table": "^0.0.1",
+    "@yaireo/tagify": "^4.35.0",
+    "bpmn-js": "^16.5.0",
+    "express": "^4.17.1",
+    "moment": "^2.30.1",
+    "pdfjs-dist": "^5.1.91",
+    "signature_pad": "^4.1.7"
+  },
+  "scripts": {
+    "start": "nodemon serve.js",
+    "dev": "gulp dev ",
+    "build": "gulp",
+    "modules": "webpack"
+  }
+}

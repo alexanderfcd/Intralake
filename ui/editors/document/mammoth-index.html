@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script>
+        window.top.document.title;
+        const searchParams = new URLSearchParams(location.search);
+        let doc = searchParams.get("src");
+        if(doc) {
+          
+            doc = decodeURI(doc);
+         
+        }
+
+        window.__$$currentDocument = doc
+       
+         
+    </script>
+
+   
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #editor{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+   
+</head>
+<body>
+ 
+   <div id="editor"></div> 
+   <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.8/mammoth.browser.min.js"></script>
+   <script>
+       function parseWordDocxFile(n) {
+        console.log(n);
+                   mammoth.convertToHtml({
+                    xpath: window.__$$currentDocument,
+                       // arrayBuffer: n,
+                       arrayBuffer: n,
+                   }).then(function(e) {
+                        console.log(1, e);
+                       editor.innerHTML = e.value;
+                      
+                   }).catch(e => {
+                    console.log(2, e)
+                   });
+                 
+ 
+            
+ 
+           
+       }
+   </script>
+ 
+ 
+   <script  >
+
+
+       addEventListener('load', async () => {
+  
+
+           if(window.__$$currentDocument) {
+
+
+        
+  
+            fetch( window.__$$currentDocument)
+            .then(async r => {
+                parseWordDocxFile(await r.arrayBuffer())
+            });
+ 
+
+
+            
+           }
+
+           
+       })
+
+   </script>
+
+</body>
+</html>

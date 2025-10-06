@@ -1,0 +1,58 @@
+<div class="wui-component">
+    <div class="wtabs" id="profile-block">
+        <ul class="wtab-nav">
+            <span class="wui-btn active"><lang>Profile</lang></span>
+            <span class="wui-btn"><lang>Change Password</lang></span>
+        </ul>
+
+        <div class="wtab active wtab-content">
+            <form class="wtab-form" onsubmit="w7.handle.updateProfile(event);">
+                <div class="field-holder">
+                    <div id="profile-image"></div>
+                </div>
+                <div class="field-holder">
+                    <label><lang>Email</lang></label>
+                    <input type="text" name="email" placeholder="" disabled />
+                    <span class="error" data-error data-path="email"></span>
+                </div>
+                <div class="field-holder">
+                    <label><lang>First Name</lang></label>
+                    <input type="text" name="firstName" placeholder="" />
+                    <span class="error" data-error data-path="firstName"></span>
+                </div>
+                <div class="field-holder">
+                    <label><lang>Last Name</lang></label>
+                    <input type="text" name="lastName" placeholder="" />
+                    <span class="error" data-error data-path="lastName"></span>
+                </div>
+                <div class="wui-card-footer">
+                    <button type="submit" class="wui-btn wui-btn-c btn-position-main"><lang>Update</lang></button>
+                </div>
+            </form>
+
+        </div>
+        <div class="wtab wtab-content">
+            <form class="wtab-form" onsubmit="w7.handle.updatePassword(event);">
+                <!--<div class="field-holder">
+                    <label>Current Password</label>
+                    <input type="password" name="current_password" placeholder="" />
+                    <span class="error" data-error data-path="current_password"></span>
+                </div>-->
+                <div class="field-holder">
+                    <label><lang>New Password</lang></label>
+                    <input type="password" name="password1" placeholder="" />
+                    <span class="error" data-error data-path="password1"></span>
+                </div>
+                <div class="field-holder">
+                    <label><lang>Confirm Password</lang></label>
+                    <input type="password" name="password2" placeholder="" />
+                    <span class="error" data-error data-path="password2"></span>
+                </div>
+                <div class="wui-card-footer">
+                    <button type="submit" class="wui-btn wui-btn-c btn-position-main"><lang>Update</lang></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
